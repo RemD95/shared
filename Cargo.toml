@@ -1,0 +1,15 @@
+[package]
+name = "shared"
+version = "0.1.0"
+edition = "2024"
+authors = ["Remus Daniel Blaj <remoblaj@gmail.com>"]
+description = "Shared DTOs and types for actix-web + reqwest demo"
+
+
+
+[dependencies]
+serde = { version = "1.0", features = ["derive"] }
+serde_json = "1.0"
+uuid = { version = "1", features = ["serde", "v4"] }
+chrono = { version = "0.4", features = ["serde"] }
+shared = { git = "https://github.com/RemD95/shared.git", branch = "main" }
