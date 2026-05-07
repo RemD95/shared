@@ -1,12 +1,10 @@
-//! Shared DTOs between server and client.
-//! Keep this crate minimal: only types and small helpers.
+pub mod errors;
 
 use chrono::{DateTime, Utc};
 use serde::{Deserialize, Serialize};
 use serde_json::Value;
 use uuid::Uuid;
 
-/// Repr of an item stored by the server.
 #[derive(Debug, Serialize, Deserialize, Clone, PartialEq, Eq)]
 pub struct Item {
     pub id: Uuid,
@@ -15,21 +13,18 @@ pub struct Item {
     pub created_at: DateTime<Utc>,
 }
 
-/// Request body for creating an item.
 #[derive(Debug, Serialize, Deserialize, Clone, PartialEq, Eq)]
 pub struct CreateItemRequest {
     pub name: String,
     pub value: i64,
 }
 
-/// Request body for updating an item (partial).
 #[derive(Debug, Serialize, Deserialize, Clone, PartialEq, Eq)]
 pub struct UpdateItemRequest {
     pub name: Option<String>,
     pub value: Option<i64>,
 }
 
-/// Standard error response shape returned by server on errors.
 #[derive(Debug, Serialize, Deserialize, Clone, PartialEq, Eq)]
 pub struct ErrorResponse {
     pub message: String,
@@ -37,17 +32,15 @@ pub struct ErrorResponse {
     pub code: Option<String>,
 }
 
-/// Request the client can send to `/proxy`.
 #[derive(Debug, Serialize, Deserialize, Clone, PartialEq)]
 pub struct ProxyRequest {
     pub url: String,
     #[serde(default)]
-    pub method: Option<String>, // e.g. "GET", "POST"
+    pub method: Option<String>,
     #[serde(default)]
     pub body: Option<Value>,
 }
 
-/// Response shape returned by `/proxy` (simplified).
 #[derive(Debug, Serialize, Deserialize, Clone, PartialEq)]
 pub struct ProxyResponse {
     pub status: u16,
